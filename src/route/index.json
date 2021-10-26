@@ -1,0 +1,11 @@
+{
+  "domain": "",
+  "routes": [
+    {
+      "method": "get",
+      "route": "main",
+      "controller": "MainController",
+      "action": "renderMain"
+    }
+  ]
+}
