@@ -25,7 +25,7 @@ export class Post extends Model {
   @Column({
     type: DataType.INTEGER,
   })
-  member_id!: number;
+  memberId!: number;
 
   @BelongsTo(() => Member)
   member!: Member;
