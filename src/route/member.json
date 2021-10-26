@@ -1,0 +1,12 @@
+{
+    "domain": "member",
+    "routes": [
+      {
+        "method": "post",
+        "route": "",
+        "controller": "MemberController",
+        "action": "signup"
+      }
+    ]
+  }
+  
