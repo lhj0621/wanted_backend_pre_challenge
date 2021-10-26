@@ -18,6 +18,12 @@
       "route": "",
       "controller": "PostController",
       "action": "writePost"
+    },
+    {
+      "method": "put",
+      "route": ":postId",
+      "controller": "PostController",
+      "action": "updatePost"
     }
   ]
 }

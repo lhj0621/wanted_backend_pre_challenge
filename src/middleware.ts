@@ -6,4 +6,9 @@ export const middlewares = [
     route: "/posts",
     middleware: [isAuth],
   },
+  {
+    method: "put",
+    route: "/posts/:postId",
+    middleware: [isAuth],
+  },
 ];
