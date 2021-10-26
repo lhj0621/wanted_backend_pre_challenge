@@ -38,4 +38,33 @@ export class PostService {
 
     return postInfo;
   }
+
+  public async getPostList(
+    order: string,
+    limit: number,
+    offset: number
+  ): Promise<{ rows: Post[]; count: number }> {
+    const orderArr = order.split("|");
+    const PostList = await Post.findAndCountAll({
+      attributes: [
+        "id",
+        "memberId",
+        "title",
+        "content",
+        "createdAt",
+        "updatedAt",
+      ],
+      include: [
+        {
+          model: Member,
+          attributes: ["name"],
+        },
+      ],
+      limit,
+      offset,
+      order: [[orderArr[0], orderArr[1]]],
+      distinct: true,
+    });
+    return PostList;
+  }
 }

@@ -3,6 +3,12 @@
   "routes": [
     {
       "method": "get",
+      "route": "",
+      "controller": "PostController",
+      "action": "getPostList"
+    },
+    {
+      "method": "get",
       "route": ":postId",
       "controller": "PostController",
       "action": "getPost"
