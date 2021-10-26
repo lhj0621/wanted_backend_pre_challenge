@@ -11,4 +11,9 @@ export const middlewares = [
     route: "/posts/:postId",
     middleware: [isAuth],
   },
+  {
+    method: "delete",
+    route: "/posts/:postId",
+    middleware: [isAuth],
+  },
 ];
