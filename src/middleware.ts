@@ -3,7 +3,7 @@ import isAuth from "./middleware/isAuth";
 export const middlewares = [
   {
     method: "post",
-    route: "/main",
+    route: "/posts",
     middleware: [isAuth],
   },
 ];

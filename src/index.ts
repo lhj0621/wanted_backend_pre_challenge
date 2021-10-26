@@ -28,6 +28,9 @@ sequelize
 // view engine setup
 app.set("views", path.join(__dirname, "view"));
 app.set("view engine", "ejs");
+app.use(
+  session({ secret: "sessionKey", resave: true, saveUninitialized: false })
+);
 
 //morgan & helmet
 app.use(
