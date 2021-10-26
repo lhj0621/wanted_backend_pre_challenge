@@ -51,7 +51,7 @@ app.use(express.urlencoded({ extended: false }));
 //middleware
 for (const info of middlewares) {
   for (const mw of info.middleware) {
-    app.use(info.route, mw);
+    (app as any)[info.method](info.route, mw);
   }
 }
 

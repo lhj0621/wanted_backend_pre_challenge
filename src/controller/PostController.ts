@@ -5,7 +5,7 @@ import { validate } from "../util/joiValidate";
 import { verify } from "../util/jwt";
 import { PostService } from "../service/PostService";
 
-export default class MainController {
+export default class PostController {
   private postService = new PostService();
   async writePost(req: Request, res: Response, next: NextFunction) {
     const schema = Joi.object()
@@ -24,6 +24,20 @@ export default class MainController {
         content
       );
       return { data: postInfo };
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  }
+
+  async getPost(req: Request, res: Response, next: NextFunction) {
+    const { postId } = req.params;
+    try {
+      const posts = await this.postService.getPost(Number(postId));
+      if (!posts) {
+        throw createHttpError(400, `유효하지 않은 게시글 번호입니다.`);
+      }
+      return { posts };
     } catch (error) {
       console.error(error);
       next(error);

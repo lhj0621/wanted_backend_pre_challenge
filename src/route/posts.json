@@ -1,12 +1,17 @@
 {
-    "domain": "posts",
-    "routes": [
-      {
-        "method": "post",
-        "route": "",
-        "controller": "PostController",
-        "action": "writePost"
-      }
-    ]
-  }
-  
+  "domain": "posts",
+  "routes": [
+    {
+      "method": "get",
+      "route": ":postId",
+      "controller": "PostController",
+      "action": "getPost"
+    },
+    {
+      "method": "post",
+      "route": "",
+      "controller": "PostController",
+      "action": "writePost"
+    }
+  ]
+}
