@@ -43,4 +43,19 @@ export default class PostController {
       next(error);
     }
   }
+
+  async getPostList(req: Request, res: Response, next: NextFunction) {
+    try {
+      const order = req.query.order ? String(req.query.order) : "createdAt|DESC";
+      const limit = req.query.limit ? Number(req.query.limit) : 20;
+      const offset = req.query.page ? (Number(req.query.page) - 1) * limit : 0;
+
+      const postList = await this.postService.getPostList(order, limit, offset);
+
+      return { count: postList.count, data: postList.rows };
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  }
 }
