@@ -67,4 +67,12 @@ export class PostService {
     });
     return PostList;
   }
+
+  public async updatePost(
+    id: number,
+    title: string,
+    content: string
+  ): Promise<void> {
+    await Post.update({ title, content }, { where: { id } });
+  }
 }
