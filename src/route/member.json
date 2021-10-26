@@ -6,6 +6,12 @@
         "route": "",
         "controller": "MemberController",
         "action": "signup"
+      },
+      {
+        "method": "post",
+        "route": "signin",
+        "controller": "MemberController",
+        "action": "signin"
       }
     ]
   }
