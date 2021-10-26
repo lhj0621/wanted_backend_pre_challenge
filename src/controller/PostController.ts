@@ -46,7 +46,9 @@ export default class PostController {
 
   async getPostList(req: Request, res: Response, next: NextFunction) {
     try {
-      const order = req.query.order ? String(req.query.order) : "createdAt|DESC";
+      const order = req.query.order
+        ? String(req.query.order)
+        : "createdAt|DESC";
       const limit = req.query.limit ? Number(req.query.limit) : 20;
       const offset = req.query.page ? (Number(req.query.page) - 1) * limit : 0;
 
@@ -86,6 +88,30 @@ export default class PostController {
       await this.postService.updatePost(Number(postId), title, content);
       res.status(201);
       return { message: "게시글 수정이 완료되었습니다." };
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  }
+
+  async deletePost(req: Request, res: Response, next: NextFunction) {
+    const schema = Joi.object().keys({
+      postId: Joi.string().required(),
+    });
+    try {
+      validate(schema, req.params);
+      const { postId } = req.params;
+      const posts = await this.postService.getPost(Number(postId));
+      if (!posts) {
+        throw createHttpError(400, `유효하지 않은 게시글 번호입니다.`);
+      }
+      const decoded = verify(req.headers.authorization?.split("Bearer ")[1]);
+      if (posts.memberId != decoded.id) {
+        throw createHttpError(403, `본인 글만 수정할 수 있습니다.`);
+      }
+      await this.postService.deletePost(Number(postId));
+      res.status(204);
+      return { message: "게시글 삭제가 완료되었습니다." };
     } catch (error) {
       console.error(error);
       next(error);

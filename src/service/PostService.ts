@@ -75,4 +75,8 @@ export class PostService {
   ): Promise<void> {
     await Post.update({ title, content }, { where: { id } });
   }
+
+  public async deletePost(id: number): Promise<void> {
+    await Post.destroy({ where: { id } });
+  }
 }

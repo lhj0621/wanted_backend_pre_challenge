@@ -24,6 +24,12 @@
       "route": ":postId",
       "controller": "PostController",
       "action": "updatePost"
+    },
+    {
+      "method": "delete",
+      "route": ":postId",
+      "controller": "PostController",
+      "action": "deletePost"
     }
   ]
 }
