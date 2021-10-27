@@ -1,0 +1,35 @@
+{
+  "domain": "posts",
+  "routes": [
+    {
+      "method": "get",
+      "route": "",
+      "controller": "PostsController",
+      "action": "getPostsList"
+    },
+    {
+      "method": "get",
+      "route": ":postsId",
+      "controller": "PostsController",
+      "action": "getPosts"
+    },
+    {
+      "method": "post",
+      "route": "",
+      "controller": "PostsController",
+      "action": "writePosts"
+    },
+    {
+      "method": "put",
+      "route": ":postsId",
+      "controller": "PostsController",
+      "action": "updatePosts"
+    },
+    {
+      "method": "delete",
+      "route": ":postsId",
+      "controller": "PostsController",
+      "action": "deletePosts"
+    }
+  ]
+}

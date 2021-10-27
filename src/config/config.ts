@@ -13,4 +13,8 @@ const dbConfig: any = {
   dialect: "mysql",
 };
 
-export { app, dbConfig };
+const jwtConfing: any = {
+  secretKey: "wanted",
+};
+
+export { app, dbConfig, jwtConfing };

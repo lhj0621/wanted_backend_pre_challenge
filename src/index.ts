@@ -3,7 +3,6 @@ import morgan from "morgan";
 import path = require("path");
 import helmet from "helmet";
 import dotenv from "dotenv";
-import bodyParser from "body-parser";
 import session from "express-session";
 
 import { sequelize } from "./model/index";
@@ -28,6 +27,9 @@ sequelize
 // view engine setup
 app.set("views", path.join(__dirname, "view"));
 app.set("view engine", "ejs");
+app.use(
+  session({ secret: "sessionKey", resave: true, saveUninitialized: false })
+);
 
 //morgan & helmet
 app.use(
@@ -48,7 +50,7 @@ app.use(express.urlencoded({ extended: false }));
 //middleware
 for (const info of middlewares) {
   for (const mw of info.middleware) {
-    app.use(info.route, mw);
+    (app as any)[info.method](info.route, mw);
   }
 }
 
