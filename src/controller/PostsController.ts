@@ -23,6 +23,7 @@ export default class PostsController {
         title,
         content
       );
+      res.status(201);
       return { data: postsInfo };
     } catch (error) {
       console.error(error);
@@ -107,7 +108,7 @@ export default class PostsController {
       }
       const decoded = verify(req.headers.authorization?.split("Bearer ")[1]);
       if (posts.memberId != decoded.id) {
-        throw createHttpError(403, `본인 글만 수정할 수 있습니다.`);
+        throw createHttpError(403, `본인 글만 삭제할 수 있습니다.`);
       }
       await this.postsService.deletePosts(Number(postsId));
       res.status(204);

@@ -50,7 +50,7 @@ authentication을 위해서 [JWT](https://jwt.io/)를 사용하였습니다. 로
 ### route
 route.ts를 작성하여 한 곳에서 공통적인 소스를 관리하고 src/route에 있는 파일을 이용하여 관리할 수 있도록 제작하였습니다.
 
-### gitgub
+### github
 Projects의 칸반과 PR와 커밋 컨벤션을 신경쓰며 제작하였습니다.
 
 ## 실행 방법
