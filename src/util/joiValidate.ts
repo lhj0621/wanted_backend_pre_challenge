@@ -1,6 +1,5 @@
 import { ObjectSchema } from "joi";
 import createHttpError from "http-errors";
-import { NextFunction } from "express";
 
 export const validate = (schema: ObjectSchema<any>, data: any): void => {
   const { value, error } = schema.validate(data);

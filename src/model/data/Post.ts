@@ -4,10 +4,8 @@ import {
   Model,
   AllowNull,
   DataType,
-  Default,
   ForeignKey,
   BelongsTo,
-  HasMany,
 } from "sequelize-typescript";
 import { Member } from "./Member";
 

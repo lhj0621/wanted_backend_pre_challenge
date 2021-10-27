@@ -4,32 +4,32 @@
     {
       "method": "get",
       "route": "",
-      "controller": "PostController",
-      "action": "getPostList"
+      "controller": "PostsController",
+      "action": "getPostsList"
     },
     {
       "method": "get",
-      "route": ":postId",
-      "controller": "PostController",
-      "action": "getPost"
+      "route": ":postsId",
+      "controller": "PostsController",
+      "action": "getPosts"
     },
     {
       "method": "post",
       "route": "",
-      "controller": "PostController",
-      "action": "writePost"
+      "controller": "PostsController",
+      "action": "writePosts"
     },
     {
       "method": "put",
-      "route": ":postId",
-      "controller": "PostController",
-      "action": "updatePost"
+      "route": ":postsId",
+      "controller": "PostsController",
+      "action": "updatePosts"
     },
     {
       "method": "delete",
-      "route": ":postId",
-      "controller": "PostController",
-      "action": "deletePost"
+      "route": ":postsId",
+      "controller": "PostsController",
+      "action": "deletePosts"
     }
   ]
 }

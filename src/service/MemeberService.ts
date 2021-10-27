@@ -1,9 +1,5 @@
 import { Request } from "express";
-import { sequelize as sequelizeModel } from "../model/index";
-import sequelize from "sequelize";
 import { Member } from "../model/data/Member";
-const Op = sequelize.Op;
-
 export class MemeberService {
   public async findMemberByEmail(email: string): Promise<Member | null> {
     return await Member.findOne({

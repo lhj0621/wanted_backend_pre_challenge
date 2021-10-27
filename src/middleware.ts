@@ -8,12 +8,12 @@ export const middlewares = [
   },
   {
     method: "put",
-    route: "/posts/:postId",
+    route: "/posts/:postsId",
     middleware: [isAuth],
   },
   {
     method: "delete",
-    route: "/posts/:postId",
+    route: "/posts/:postsId",
     middleware: [isAuth],
   },
 ];

@@ -3,11 +3,11 @@ import createHttpError from "http-errors";
 import Joi from "joi";
 import { validate } from "../util/joiValidate";
 import { verify } from "../util/jwt";
-import { PostService } from "../service/PostService";
+import { PostsService } from "../service/PostsService";
 
-export default class PostController {
-  private postService = new PostService();
-  async writePost(req: Request, res: Response, next: NextFunction) {
+export default class PostsController {
+  private postsService = new PostsService();
+  async writePosts(req: Request, res: Response, next: NextFunction) {
     const schema = Joi.object()
       .keys({
         title: Joi.string().required(),
@@ -18,22 +18,22 @@ export default class PostController {
       validate(schema, req.body);
       const { title, content } = req.body;
       const decoded = verify(req.headers.authorization?.split("Bearer ")[1]);
-      const postInfo = await this.postService.writePost(
+      const postsInfo = await this.postsService.writePosts(
         decoded.id,
         title,
         content
       );
-      return { data: postInfo };
+      return { data: postsInfo };
     } catch (error) {
       console.error(error);
       next(error);
     }
   }
 
-  async getPost(req: Request, res: Response, next: NextFunction) {
-    const { postId } = req.params;
+  async getPosts(req: Request, res: Response, next: NextFunction) {
+    const { postsId } = req.params;
     try {
-      const posts = await this.postService.getPost(Number(postId));
+      const posts = await this.postsService.getPosts(Number(postsId));
       if (!posts) {
         throw createHttpError(400, `유효하지 않은 게시글 번호입니다.`);
       }
@@ -44,7 +44,7 @@ export default class PostController {
     }
   }
 
-  async getPostList(req: Request, res: Response, next: NextFunction) {
+  async getPostsList(req: Request, res: Response, next: NextFunction) {
     try {
       const order = req.query.order
         ? String(req.query.order)
@@ -52,18 +52,18 @@ export default class PostController {
       const limit = req.query.limit ? Number(req.query.limit) : 20;
       const offset = req.query.page ? (Number(req.query.page) - 1) * limit : 0;
 
-      const postList = await this.postService.getPostList(order, limit, offset);
+      const postsList = await this.postsService.getPostsList(order, limit, offset);
 
-      return { count: postList.count, data: postList.rows };
+      return { count: postsList.count, data: postsList.rows };
     } catch (error) {
       console.error(error);
       next(error);
     }
   }
 
-  async updatePost(req: Request, res: Response, next: NextFunction) {
+  async updatePosts(req: Request, res: Response, next: NextFunction) {
     const paramsSchema = Joi.object().keys({
-      postId: Joi.string().required(),
+      postsId: Joi.string().required(),
     });
     const bodySchema = Joi.object()
       .keys({
@@ -74,10 +74,10 @@ export default class PostController {
     try {
       validate(paramsSchema, req.params);
       validate(bodySchema, req.body);
-      const { postId } = req.params;
+      const { postsId } = req.params;
       const { title, content } = req.body;
 
-      const posts = await this.postService.getPost(Number(postId));
+      const posts = await this.postsService.getPosts(Number(postsId));
       if (!posts) {
         throw createHttpError(400, `유효하지 않은 게시글 번호입니다.`);
       }
@@ -85,7 +85,7 @@ export default class PostController {
       if (posts.memberId != decoded.id) {
         throw createHttpError(403, `본인 글만 수정할 수 있습니다.`);
       }
-      await this.postService.updatePost(Number(postId), title, content);
+      await this.postsService.updatePosts(Number(postsId), title, content);
       res.status(201);
       return { message: "게시글 수정이 완료되었습니다." };
     } catch (error) {
@@ -94,14 +94,14 @@ export default class PostController {
     }
   }
 
-  async deletePost(req: Request, res: Response, next: NextFunction) {
+  async deletePosts(req: Request, res: Response, next: NextFunction) {
     const schema = Joi.object().keys({
-      postId: Joi.string().required(),
+      postsId: Joi.string().required(),
     });
     try {
       validate(schema, req.params);
-      const { postId } = req.params;
-      const posts = await this.postService.getPost(Number(postId));
+      const { postsId } = req.params;
+      const posts = await this.postsService.getPosts(Number(postsId));
       if (!posts) {
         throw createHttpError(400, `유효하지 않은 게시글 번호입니다.`);
       }
@@ -109,7 +109,7 @@ export default class PostController {
       if (posts.memberId != decoded.id) {
         throw createHttpError(403, `본인 글만 수정할 수 있습니다.`);
       }
-      await this.postService.deletePost(Number(postId));
+      await this.postsService.deletePosts(Number(postsId));
       res.status(204);
       return { message: "게시글 삭제가 완료되었습니다." };
     } catch (error) {

@@ -1,11 +1,8 @@
-import { sequelize as sequelizeModel } from "../model/index";
-import sequelize from "sequelize";
 import { Post } from "../model/data/Post";
 import { Member } from "../model/data/Member";
-const Op = sequelize.Op;
 
-export class PostService {
-  public async writePost(
+export class PostsService {
+  public async writePosts(
     memberId: number,
     title: string,
     content: string
@@ -17,8 +14,8 @@ export class PostService {
     });
   }
 
-  public async getPost(portId: number): Promise<Post | null> {
-    const postInfo = await Post.findOne({
+  public async getPosts(portId: number): Promise<Post | null> {
+    const postsInfo = await Post.findOne({
       attributes: [
         "id",
         "memberId",
@@ -36,16 +33,16 @@ export class PostService {
       ],
     });
 
-    return postInfo;
+    return postsInfo;
   }
 
-  public async getPostList(
+  public async getPostsList(
     order: string,
     limit: number,
     offset: number
   ): Promise<{ rows: Post[]; count: number }> {
     const orderArr = order.split("|");
-    const PostList = await Post.findAndCountAll({
+    const PostsList = await Post.findAndCountAll({
       attributes: [
         "id",
         "memberId",
@@ -65,10 +62,10 @@ export class PostService {
       order: [[orderArr[0], orderArr[1]]],
       distinct: true,
     });
-    return PostList;
+    return PostsList;
   }
 
-  public async updatePost(
+  public async updatePosts(
     id: number,
     title: string,
     content: string
@@ -76,7 +73,7 @@ export class PostService {
     await Post.update({ title, content }, { where: { id } });
   }
 
-  public async deletePost(id: number): Promise<void> {
+  public async deletePosts(id: number): Promise<void> {
     await Post.destroy({ where: { id } });
   }
 }

@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
 import { jwtConfing } from "../config/config";
 import { validate } from "../util/joiValidate";
+
 export default class MemberController {
   private memeberService = new MemeberService();
 

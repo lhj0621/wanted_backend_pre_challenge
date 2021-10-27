@@ -3,7 +3,6 @@ import morgan from "morgan";
 import path = require("path");
 import helmet from "helmet";
 import dotenv from "dotenv";
-import bodyParser from "body-parser";
 import session from "express-session";
 
 import { sequelize } from "./model/index";
